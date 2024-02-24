@@ -60,7 +60,7 @@ func main() {
 		return c.JSON(apiResponse("success", "Subscription updated.", nil))
 	})
 
-	// Handle subscription management
+	// Handle subscription list
 	app.Get("/subscription/list", func(c *fiber.Ctx) error {
 		orderID := c.Query("orderId")
 		// TODO: Check the status of an order based on order ID
