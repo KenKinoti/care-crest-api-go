@@ -30,6 +30,26 @@ func main() {
 		return c.JSON(apiResponse("success", "User logged in.", nil))
 	})
 
+	// Handle pharmacy list
+	app.Post("/pharmacy/list", func(c *fiber.Ctx) error {
+		subReq := new(struct{})
+		if err := c.BodyParser(subReq); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(apiResponse("error", "Invalid JSON", nil))
+		}
+		// TODO: Add logic to manage user subscriptions
+		return c.JSON(apiResponse("success", "Subscription updated.", nil))
+	})
+
+	// Handle medicine list
+	app.Post("/medicine/list", func(c *fiber.Ctx) error {
+		subReq := new(struct{})
+		if err := c.BodyParser(subReq); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(apiResponse("error", "Invalid JSON", nil))
+		}
+		// TODO: Add logic to manage user subscriptions
+		return c.JSON(apiResponse("success", "Subscription updated.", nil))
+	})
+
 	// Handle subscription management
 	app.Post("/subscription/manage", func(c *fiber.Ctx) error {
 		subReq := new(struct{})
@@ -38,6 +58,13 @@ func main() {
 		}
 		// TODO: Add logic to manage user subscriptions
 		return c.JSON(apiResponse("success", "Subscription updated.", nil))
+	})
+
+	// Handle subscription management
+	app.Get("/subscription/list", func(c *fiber.Ctx) error {
+		orderID := c.Query("orderId")
+		// TODO: Check the status of an order based on order ID
+		return c.JSON(apiResponse("success", "Order status retrieved.", orderID))
 	})
 
 	// Handle prescription upload
@@ -77,9 +104,33 @@ func main() {
 		return c.JSON(apiResponse("success", "Order status retrieved.", orderID))
 	})
 
+	// Handle order list checks
+	app.Get("/order/list", func(c *fiber.Ctx) error {
+		orderID := c.Query("orderId")
+		// TODO: Check the status of all order
+		return c.JSON(apiResponse("success", "Order status retrieved.", orderID))
+	})
+
+	// Handle driver creation
+	app.Post("/driver/create", func(c *fiber.Ctx) error {
+		driverReq := new(struct{})
+		if err := c.BodyParser(orderReq); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(apiResponse("error", "Invalid JSON", nil))
+		}
+		// TODO: Create an order with the provided details
+		return c.JSON(apiResponse("success", "Order created.", nil))
+	})
+
+	// Handle driver status checks
+	app.Get("/driver/status", func(c *fiber.Ctx) error {
+		driverID := c.Query("driverId")
+		// TODO: Check the status of an order based on order ID
+		return c.JSON(apiResponse("success", "Driver status retrieved.", driverID))
+	})
+
 	// Default URL for testing connection
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Server is running")
+		return c.SendString("Care Crest Server is running")
 	})
 
 	// Start server on port 8080
