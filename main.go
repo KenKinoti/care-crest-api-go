@@ -114,8 +114,8 @@ func main() {
 	// Handle driver creation
 	app.Post("/driver/create", func(c *fiber.Ctx) error {
 		driverReq := new(struct{})
-		if err := c.BodyParser(orderReq); err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(apiResponse("error", "Invalid JSON", nil))
+		if err := c.BodyParser(driverReq); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(apiResponse("error", "Invalid JSON", driverReq))
 		}
 		// TODO: Create an order with the provided details
 		return c.JSON(apiResponse("success", "Order created.", nil))
